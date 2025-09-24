@@ -1,0 +1,158 @@
+@import './variables';
+
+.home-page {
+  padding: 2rem 0;
+  text-align: center;
+
+  .hero-section {
+    margin-bottom: 4rem;
+
+    h1 {
+      font-size: 2.5rem;
+      color: $primary-color;
+      margin-bottom: 1rem;
+      font-weight: bold;
+
+      @include responsive(tablet) {
+        font-size: 2rem;
+      }
+
+      @include responsive(mobile) {
+        font-size: 1.5rem;
+      }
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: $text-color;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
+
+  .levels-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    @include responsive(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(mobile) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .level-card {
+    background-color: white;
+    border-radius: $border-radius;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, $primary-color, $secondary-color);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: $accent-color;
+    }
+
+    .dark & {
+      background-color: #2a2a2a;
+      color: white;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border-color: $accent-color;
+
+      .level-icon {
+        transform: scale(1.1);
+        color: $accent-color;
+      }
+    }
+
+    .level-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      padding: 1rem;
+      border-radius: 50%;
+      background: rgba($accent-color, 0.1);
+      border: 2px solid $accent-color;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: $primary-color;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    p {
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      flex-grow: 1;
+      color: $text-color;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      background: linear-gradient(to right, $primary-color, darken($primary-color, 5%));
+      border: 2px solid $accent-color;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+
+      &:hover {
+        background: linear-gradient(to right, darken($primary-color, 5%), $primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba($accent-color, 0.2);
+      }
+    }
+  }
+}
+
+// Support RTL pour l'arabe
+[dir="rtl"] {
+  .home-page {
+    .level-card {
+      .level-icon {
+        margin-right: 0;
+        margin-left: 1rem;
+      }
+    }
+  }
+} 

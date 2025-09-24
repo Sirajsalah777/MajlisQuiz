@@ -1,0 +1,172 @@
+@use "sass:color";
+@import './mixins';
+
+// Couleurs
+$primary-color: #C1272D; // Rouge marocain
+$primary-color-dark: darken($primary-color, 10%);
+$primary-color-light: rgba($primary-color, 0.1);
+$secondary-color: #006233; // Vert marocain
+$secondary-color-dark: darken($secondary-color, 10%);
+$accent-color: #D4AF37; // Or institutionnel
+$success-color: #006233; // Vert marocain pour le succès
+$success-color-dark: darken($success-color, 10%);
+$error-color: #C1272D; // Rouge marocain pour les erreurs
+$warning-color: #D4AF37; // Or pour les avertissements
+$info-color: #006233; // Vert marocain pour les infos
+
+// Couleurs de texte
+$text-color: #2c3e50;
+$text-primary: $text-color;
+$text-secondary: #7f8c8d;
+$text-light: #ecf0f1;
+$text-color-secondary: $text-secondary;
+
+// Couleurs de fond
+$background-color: #f5f6fa;
+$background-dark: #1a1a1a;
+$surface-color: #ffffff;
+$white: #ffffff;
+$black: #000000;
+$dark-text: #ffffff;
+$dark-surface: #2a2a2a;
+$dark-background: #1a1a1a;
+$border-color: #e0e0e0;
+
+// Variables CSS personnalisées
+:root {
+  --primary-color: #{$primary-color};
+  --primary-color-dark: #{$primary-color-dark};
+  --primary-color-light: #{$primary-color-light};
+  --secondary-color: #{$secondary-color};
+  --secondary-color-dark: #{$secondary-color-dark};
+  --accent-color: #{$accent-color};
+  --success-color: #{$success-color};
+  --success-color-dark: #{$success-color-dark};
+  --error-color: #{$error-color};
+  --warning-color: #{$warning-color};
+  --info-color: #{$info-color};
+  --text-color: #{$text-color};
+  --text-color-secondary: #{$text-secondary};
+  --background-color: #{$background-color};
+  --surface-color: #{$surface-color};
+  --border-color: #{$border-color};
+  --bg-primary: #{$background-color};
+  --bg-secondary: #{$surface-color};
+  --bg-hover: #{$primary-color-light};
+  --disabled-color: #{$text-secondary};
+}
+
+// Dimensions
+$header-height: 64px;
+$footer-height: 200px;
+$sidebar-width: 250px;
+
+// Espacement
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+
+// Bordures
+$border-radius: 8px;
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Ombres
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+// Breakpoints - Définis d'abord les valeurs de base
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Breakpoints - Alias pour la compatibilité (définis après les valeurs de base)
+$breakpoint-mobile: $breakpoint-sm;
+$breakpoint-tablet: $breakpoint-md;
+
+// Transitions
+$transition-speed: 0.3s;
+$transition-timing: ease;
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// Typographie
+$font-family-base: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+$font-family-heading: 'Poppins', $font-family-base;
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$line-height-base: 1.5;
+
+// Mixins
+@mixin responsive($breakpoint) {
+  @if $breakpoint == tablet {
+    @media (max-width: $breakpoint-tablet) { @content; }
+  } @else if $breakpoint == mobile {
+    @media (max-width: $breakpoint-mobile) { @content; }
+  } @else if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) { @content; }
+  }
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  border-radius: $border-radius;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all $transition-normal;
+  text-decoration: none;
+  gap: $spacing-sm;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+@mixin card-base {
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  transition: transform $transition-speed $transition-timing,
+              box-shadow $transition-speed $transition-timing;
+
+  .dark & {
+    background-color: $background-dark;
+    color: $dark-text;
+  }
+} 

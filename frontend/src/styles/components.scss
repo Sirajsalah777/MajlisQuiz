@@ -1,0 +1,217 @@
+// Variables
+$primary-color: #1a5f7a;
+$secondary-color: #c41e3a;
+$accent-color: #c19a6b;
+$success-color: #28a745;
+$error-color: #dc3545;
+$info-color: #17a2b8;
+$border-radius: 8px;
+$transition-speed: 0.3s;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-base {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: all $transition-speed ease;
+  font-weight: 500;
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Buttons
+.btn-primary {
+  @include button-base;
+  background-color: $primary-color;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+.btn-secondary {
+  @include button-base;
+  background-color: $secondary-color;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: darken($secondary-color, 10%);
+  }
+}
+
+// Form elements
+.form-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: $border-radius;
+    transition: border-color $transition-speed ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
+  }
+}
+
+// Notifications
+.notification {
+  background-color: white;
+  border-radius: $border-radius;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 300px;
+  max-width: 400px;
+
+  &-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &-icon {
+    font-size: 1.2rem;
+  }
+
+  &-success {
+    border-left: 4px solid $success-color;
+    .notification-icon {
+      color: $success-color;
+    }
+  }
+
+  &-error {
+    border-left: 4px solid $error-color;
+    .notification-icon {
+      color: $error-color;
+    }
+  }
+
+  &-info {
+    border-left: 4px solid $info-color;
+    .notification-icon {
+      color: $info-color;
+    }
+  }
+
+  &-close {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color $transition-speed ease;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+// Modal
+.modal {
+  &-content {
+    background-color: white;
+    border-radius: $border-radius;
+    padding: 2rem;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  &-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color $transition-speed ease;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+// Results preview
+.results-preview {
+  h2 {
+    margin-bottom: 1.5rem;
+    color: $primary-color;
+  }
+
+  .results-content {
+    margin-bottom: 2rem;
+  }
+
+  .results-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+  }
+}
+
+// Email form
+.email-form {
+  h2 {
+    margin-bottom: 1.5rem;
+    color: $primary-color;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+// Navigation buttons
+.nav-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color $transition-speed ease;
+
+  &:hover {
+    color: $accent-color;
+  }
+
+  .language-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+} 

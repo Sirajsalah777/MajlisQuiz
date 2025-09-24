@@ -1,0 +1,302 @@
+openapi: 3.0.0
+info:
+  title: QuizMa API
+  description: API pour l'application de quiz de la Chambre des Conseillers
+  version: 1.0.0
+  contact:
+    name: Support QuizMa
+    email: support@quizma.ma
+
+servers:
+  - url: http://localhost:5000/api
+    description: Serveur de développement
+  - url: https://api.quizma.ma/api
+    description: Serveur de production
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Level:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: object
+          properties:
+            fr:
+              type: string
+            ar:
+              type: string
+        description:
+          type: object
+          properties:
+            fr:
+              type: string
+            ar:
+              type: string
+        order:
+          type: integer
+        isActive:
+          type: boolean
+
+    Question:
+      type: object
+      properties:
+        _id:
+          type: string
+        text:
+          type: object
+          properties:
+            fr:
+              type: string
+            ar:
+              type: string
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: object
+                properties:
+                  fr:
+                    type: string
+                  ar:
+                    type: string
+              isCorrect:
+                type: boolean
+        level:
+          type: string
+          format: uuid
+        isActive:
+          type: boolean
+
+    QuizResult:
+      type: object
+      properties:
+        _id:
+          type: string
+        sessionId:
+          type: string
+        level:
+          type: string
+          format: uuid
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              questionId:
+                type: string
+              selectedAnswer:
+                type: integer
+              isCorrect:
+                type: boolean
+        score:
+          type: number
+        timeSpent:
+          type: number
+        deviceInfo:
+          type: object
+          properties:
+            userAgent:
+              type: string
+            ipAddress:
+              type: string
+        createdAt:
+          type: string
+          format: date-time
+
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Authentification
+      summary: Connexion administrateur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Connexion réussie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  admin:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+        '401':
+          description: Identifiants invalides
+
+  /admin/levels:
+    get:
+      tags:
+        - Administration
+      summary: Liste des niveaux
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Liste des niveaux
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Level'
+
+    post:
+      tags:
+        - Administration
+      summary: Créer un niveau
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Level'
+      responses:
+        '201':
+          description: Niveau créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Level'
+
+  /admin/questions:
+    get:
+      tags:
+        - Administration
+      summary: Liste des questions
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: level
+          schema:
+            type: string
+          description: ID du niveau
+      responses:
+        '200':
+          description: Liste des questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+
+    post:
+      tags:
+        - Administration
+      summary: Créer une question
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '201':
+          description: Question créée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+
+  /quiz/levels/{levelId}/questions:
+    get:
+      tags:
+        - Quiz
+      summary: Obtenir les questions d'un niveau
+      parameters:
+        - in: path
+          name: levelId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Questions du niveau
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+
+  /quiz/submit:
+    post:
+      tags:
+        - Quiz
+      summary: Soumettre les réponses d'un quiz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                levelId:
+                  type: string
+                answers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      questionId:
+                        type: string
+                      selectedAnswer:
+                        type: integer
+                timeSpent:
+                  type: number
+      responses:
+        '200':
+          description: Résultat du quiz
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizResult'
+
+  /quiz/results/{resultId}:
+    get:
+      tags:
+        - Quiz
+      summary: Obtenir un résultat de quiz
+      parameters:
+        - in: path
+          name: resultId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Résultat du quiz
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizResult' 
