@@ -1,27 +1,6 @@
-# QuizMa - Plateforme de Quiz sur la Chambre des Conseillers
-
+# QuizMa - Plateforme de Quiz lors de mon stage 
 ## Description
 QuizMa est une plateforme éducative interactive développée pour la Chambre des Conseillers du Parlement du Royaume du Maroc. Cette application permet aux utilisateurs de tester leurs connaissances sur les institutions parlementaires marocaines à travers différents niveaux de quiz.
-
-## Structure du Projet
-```
-quizma/
-├── frontend/          # Application React (Vite)
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── styles/
-│   │   └── utils/
-│   └── public/
-│
-└── backend/           # API Node.js/Express
-    ├── src/
-    │   ├── controllers/
-    │   ├── models/
-    │   ├── routes/
-    │   └── utils/
-    └── config/
-```
 
 ## Technologies Utilisées
 
@@ -39,23 +18,7 @@ quizma/
 - Express.js
 - MySQL/MongoDB
 - JWT pour l'authentification
-
-## Installation
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-### Backend
-```bash
-cd backend
-npm install
-npm run dev
-```
-
+  
 ## Fonctionnalités Principales
 - Quiz multi-niveaux (Débutant, Intermédiaire, Expert)
 - Interface bilingue (Français/Arabe)
@@ -64,4 +27,4 @@ npm run dev
 - Interface d'administration sécurisée
 
 ## Licence
-Propriété de la Chambre des Conseillers du Parlement du Royaume du Maroc 
+Projet personnel à NE PAS INSTALLER USAGE PERSONNEL !! 
